@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fr.dudie</groupId>
+    <artifactId>directorysync-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Directory Sync</name>
+    <description>Directory Sync parent pom</description>
+    <inceptionYear>2013</inceptionYear>
+
+    <properties>
+        <!-- Empty versionCode property to avoid recursivity issue if not 
+            set -->
+        <versionCode />
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>directorysync-android</module>
+        <module>directorysync-test</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License, Version 3</name>
+            <url>http://www.gnu.org/licenses/gpl.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>kops</id>
+            <name>Jérémie Huchet</name>
+            <properties>
+                <contact>http://www.google.com/recaptcha/mailhide/d?k=01ZGpzgTpH16GtSj8NB93DsQ==&amp;c=WrY-DpDtsC0sd8emmUY07rAJ5IhIoRWnxieganlteL0=</contact>
+            </properties>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>orgoz</id>
+            <properties>
+                <contact>http://www.google.com/recaptcha/mailhide/d?k=01ZGpzgTpH16GtSj8NB93DsQ==&amp;c=7bcMv951KPf73RPfdTZgbLRZbJvLfTOCFiCdA-kGkB8=</contact>
+            </properties>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://bugtracker.dudie.fr/itr-android/browse</url>
+        <connection>scm:svn:https://svn.itinerennes.fr/android/trunk</connection>
+        <developerConnection>scm:svn:https://svn.itinerennes.fr/android/trunk</developerConnection>
+    </scm>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://dudie.ci.cloudbees.com/job/directorysync</url>
+    </ciManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>dudie-releases</id>
+            <name>Dudie releases by Cloudbees</name>
+            <url>dav:https://repository-dudie.forge.cloudbees.com/private/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>dudie-snapshots</id>
+            <name>Dudie snapshots by Cloudbees</name>
+            <url>dav:https://repository-dudie.forge.cloudbees.com/private/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <!-- Dudie private repositories hosted by Cloudbees -->
+        <repository>
+            <id>dudie-releases</id>
+            <name>Dudie releases by Cloudbees</name>
+            <url>https://repository-dudie.forge.cloudbees.com/private/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>dudie-snapshots</id>
+            <name>Dudie snapshots by Cloudbees</name>
+            <url>https://repository-dudie.forge.cloudbees.com/private/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <!-- Dudie private repository hosts one custom plugin used at 
+                release time -->
+            <id>dudie-releases</id>
+            <name>Dudie releases by Cloudbees</name>
+            <url>https://repository-dudie.forge.cloudbees.com/private/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>dudie-maven-plugin</id>
+            <url>http://dudie.github.com/dudie-maven-plugin/repository/releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.android</groupId>
+                <artifactId>android</artifactId>
+                <version>4.1.1.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.android</groupId>
+                <artifactId>support-v4</artifactId>
+                <version>r7</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-itinerennes</artifactId>
+                <version>1.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.googlecode.androidannotations</groupId>
+                <artifactId>androidannotations</artifactId>
+                <version>2.7</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.androidannotations</groupId>
+                <artifactId>androidannotations-api</artifactId>
+                <version>2.7</version>
+            </dependency>
+
+            <!-- test dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.9.5</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <!-- Forward the "versionCode" property value to the 
+                        maven instance building the release -->
+                    <arguments>-DversionCode=${versionCode}</arguments>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <tagNameFormat>directorysync-@{version}</tagNameFormat>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.13</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>3.5.0</version>
+                    <configuration>
+                        <sdk>
+                            <platform>16</platform>
+                        </sdk>
+                        <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    </configuration>
+                    <extensions>true</extensions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jarsigner-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>fr.dudie.maven.plugin</groupId>
+                    <artifactId>dudie-maven-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

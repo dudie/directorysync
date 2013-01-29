@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>directorysync-parent</artifactId>
+        <groupId>fr.dudie</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>directorysync-test</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Directory Sync - Test module</name>
+    <description>Directory Sync test module</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <cached.roboelectric.classes.path>${project.build.directory}/roboelectric-cache</cached.roboelectric.classes.path>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pivotallabs</groupId>
+            <artifactId>robolectric</artifactId>
+            <version>1.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>directorysync-android</artifactId>
+            <classifier>with-assets</classifier>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <!-- slf4j-itinerennes conflicts with slf4j-log4j12 at runtime -->
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-itinerennes</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+</project>
