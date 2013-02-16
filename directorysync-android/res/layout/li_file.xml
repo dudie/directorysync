@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="5dp"
-        android:text="&lt;&lt;filename>>" />
+        android:text="@string/mock" />
 
 </LinearLayout>

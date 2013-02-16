@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="mock">missing label</string>
 
     <string name="app_name">Directory Sync</string>
     <string name="loading">Loading&#8230;</string>

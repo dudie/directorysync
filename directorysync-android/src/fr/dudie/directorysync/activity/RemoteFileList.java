@@ -2,6 +2,7 @@ package fr.dudie.directorysync.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +49,7 @@ public class RemoteFileList extends FragmentActivity {
     @AfterViews
     protected void setup() {
         fileListAdapter = new FileListAdapter(this);
-        fileList.setOnItemClickListener(new OnFileListItemClick(this));
+        fileList.setOnItemClickListener(fileListAdapter);
         fileList.setAdapter(fileListAdapter);
         loadRemoteFiles();
     }
@@ -77,25 +78,11 @@ public class RemoteFileList extends FragmentActivity {
         return true;
     }
 
-    private static class OnFileListItemClick implements OnItemClickListener {
-        
-        private final Context context;
-        public OnFileListItemClick(Context context) {
-            this.context=context;
-        }
-
-        @Override
-        public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId) {
-            final Intent i = new Intent(context, CustomizeSyncActivity_.class);
-            context.startActivity(i);
-        }
-
-    }
-
-    private static class FileListAdapter extends BaseAdapter {
+    private static class FileListAdapter extends BaseAdapter implements OnItemClickListener {
 
         private static class FileViewHolder {
 
+            String data;
             TextView filename;
         }
 
@@ -117,19 +104,22 @@ public class RemoteFileList extends FragmentActivity {
 
         @Override
         public View getView(int position, View v, ViewGroup parent) {
-            
+
+            final String filename = files.get(position);
+
             final FileViewHolder holder;
-            
+
             if (null == v) {
                 v = LayoutInflater.from(context).inflate(R.layout.li_file, null);
                 holder = new FileViewHolder();
                 holder.filename = (TextView) v.findViewById(R.id.li_file_name);
+                holder.data = filename;
                 v.setTag(holder);
             } else {
                 holder = (FileViewHolder) v.getTag();
             }
 
-            holder.filename.setText(files.get(position));
+            holder.filename.setText(filename);
 
             return v;
         }
@@ -148,6 +138,13 @@ public class RemoteFileList extends FragmentActivity {
         public int getCount() {
             return files.size();
         }
+
+        @Override
+        public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId) {
+            final FileViewHolder holder = (FileViewHolder) itemView.getTag();
+            context.startActivity(CustomizeSyncActivity.intent(context, holder.data));
+        }
+
     }
 
 }
