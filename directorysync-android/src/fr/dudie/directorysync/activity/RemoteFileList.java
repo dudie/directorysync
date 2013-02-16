@@ -26,16 +26,13 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 import fr.dudie.directorysync.R;
-import fr.dudie.directorysync.R.id;
-import fr.dudie.directorysync.R.layout;
-import fr.dudie.directorysync.R.menu;
 import fr.dudie.directorysync.service.FileExplorerServiceMock;
 
 @EActivity(R.layout.act_remote_file_list)
 public class RemoteFileList extends FragmentActivity {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RemoteFileList.class);
-    
+
     @Bean
     protected FileExplorerServiceMock fileExplorer;
 
@@ -43,28 +40,23 @@ public class RemoteFileList extends FragmentActivity {
     protected View loadingView;
 
     @ViewById(R.id.remote_files)
-    protected ListView remoteFilesList;
-    
-    private FileListAdapter remoteFileListAdapter;
+    protected ListView fileList;
 
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-    
+    private FileListAdapter fileListAdapter;
+
     @AfterViews
     protected void setup() {
-        remoteFileListAdapter = new FileListAdapter(this);
-        remoteFilesList.setAdapter(remoteFileListAdapter);
+        fileListAdapter = new FileListAdapter(this);
+        fileList.setAdapter(fileListAdapter);
         loadRemoteFiles();
     }
 
     @Background
     protected void loadRemoteFiles() {
         LOGGER.debug("load remote files.start");
-        
+
         final List<String> files = fileExplorer.list();
-        remoteFileListAdapter.setFiles(files);
+        fileListAdapter.setFiles(files);
         hideLoad();
 
         LOGGER.debug("load remote files.end");
@@ -72,9 +64,9 @@ public class RemoteFileList extends FragmentActivity {
 
     @UiThread
     protected void hideLoad() {
-        remoteFileListAdapter.notifyDataSetChanged();
+        fileListAdapter.notifyDataSetChanged();
         loadingView.setVisibility(View.GONE);
-        remoteFilesList.setVisibility(View.VISIBLE);
+        fileList.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -84,6 +76,11 @@ public class RemoteFileList extends FragmentActivity {
     }
 
     private static class FileListAdapter extends BaseAdapter {
+
+        private static class FileViewHolder {
+
+            TextView filename;
+        }
 
         private final Context context;
         private List<String> files;
@@ -102,16 +99,22 @@ public class RemoteFileList extends FragmentActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final LinearLayout line;
-            if (null == convertView) {
-                line = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.li_file, null);
+        public View getView(int position, View v, ViewGroup parent) {
+            
+            final FileViewHolder holder;
+            
+            if (null == v) {
+                v = LayoutInflater.from(context).inflate(R.layout.li_file, null);
+                holder = new FileViewHolder();
+                holder.filename = (TextView) v.findViewById(R.id.li_file_name);
+                v.setTag(holder);
             } else {
-                line = (LinearLayout) convertView;
+                holder = (FileViewHolder) v.getTag();
             }
-            final TextView filename = (TextView) line.findViewById(R.id.li_file_name);
-            filename.setText(files.get(position));
-            return line;
+
+            holder.filename.setText(files.get(position));
+
+            return v;
         }
 
         @Override
