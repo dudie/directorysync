@@ -45,6 +45,10 @@ public class FileExplorerServiceMock {
         files.add("syslog-ng");
         files.add("system-config-printer");
         files.add("systemd");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
         return files;
     }
 }
