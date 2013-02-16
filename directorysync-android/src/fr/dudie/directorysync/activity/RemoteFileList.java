@@ -7,14 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class RemoteFileList extends FragmentActivity {
     @AfterViews
     protected void setup() {
         fileListAdapter = new FileListAdapter(this);
+        fileList.setOnItemClickListener(new OnFileListItemClick(this));
         fileList.setAdapter(fileListAdapter);
         loadRemoteFiles();
     }
@@ -73,6 +75,21 @@ public class RemoteFileList extends FragmentActivity {
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.act_remote_file_list, menu);
         return true;
+    }
+
+    private static class OnFileListItemClick implements OnItemClickListener {
+        
+        private final Context context;
+        public OnFileListItemClick(Context context) {
+            this.context=context;
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId) {
+            final Intent i = new Intent(context, CustomizeSyncActivity_.class);
+            context.startActivity(i);
+        }
+
     }
 
     private static class FileListAdapter extends BaseAdapter {
