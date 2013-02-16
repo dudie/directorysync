@@ -1,4 +1,4 @@
-package fr.dudie.directorysync;
+package fr.dudie.directorysync.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,10 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 
+import fr.dudie.directorysync.R;
+import fr.dudie.directorysync.R.id;
+import fr.dudie.directorysync.R.layout;
+import fr.dudie.directorysync.R.menu;
 import fr.dudie.directorysync.service.FileExplorerServiceMock;
 
 @EActivity(R.layout.act_remote_file_list)
@@ -34,6 +38,9 @@ public class RemoteFileList extends FragmentActivity {
     
     @Bean
     protected FileExplorerServiceMock fileExplorer;
+
+    @ViewById(R.id.loading)
+    protected View loadingView;
 
     @ViewById(R.id.remote_files)
     protected ListView remoteFilesList;
@@ -55,7 +62,7 @@ public class RemoteFileList extends FragmentActivity {
     @Background
     protected void loadRemoteFiles() {
         LOGGER.debug("load remote files.start");
-        showLoad();
+        
         final List<String> files = fileExplorer.list();
         remoteFileListAdapter.setFiles(files);
         hideLoad();
@@ -66,10 +73,8 @@ public class RemoteFileList extends FragmentActivity {
     @UiThread
     protected void hideLoad() {
         remoteFileListAdapter.notifyDataSetChanged();
-    }
-
-    @UiThread
-    protected void showLoad() {
+        loadingView.setVisibility(View.GONE);
+        remoteFilesList.setVisibility(View.VISIBLE);
     }
 
     @Override

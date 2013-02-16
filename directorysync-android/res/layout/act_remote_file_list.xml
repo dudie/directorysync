@@ -6,10 +6,13 @@
     tools:context=".RemoteFileList"
     tools:ignore="MergeRootFrame" >
 
+    <include layout="@layout/misc_loading" />
+    
     <ListView
         android:id="@+id/remote_files"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent" 
+        android:visibility="gone">
     </ListView>
 
 </LinearLayout>

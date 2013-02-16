@@ -7,6 +7,7 @@
 
 # Java class files
 *.class
+.apt_generated/
 
 # generated files
 bin/
