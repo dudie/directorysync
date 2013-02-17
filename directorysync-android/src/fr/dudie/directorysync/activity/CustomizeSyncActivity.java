@@ -12,13 +12,14 @@ import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.ViewById;
 
 import fr.dudie.directorysync.R;
+import fr.dudie.directorysync.service.model.RemoteFile;
 
 @EActivity(R.layout.act_customize_sync)
 public class CustomizeSyncActivity extends FragmentActivity {
 
-    public static Intent intent(Context context, String filename) {
+    public static Intent intent(Context context, RemoteFile file) {
         final Intent i = new Intent(context, CustomizeSyncActivity_.class);
-        i.putExtra("filename", filename);
+        i.putExtra("file", file);
         return i;
     }
 
@@ -26,7 +27,7 @@ public class CustomizeSyncActivity extends FragmentActivity {
     protected TextView filenameView;
 
     @Extra
-    protected String filename;
+    protected RemoteFile file;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -35,6 +36,6 @@ public class CustomizeSyncActivity extends FragmentActivity {
 
     @AfterViews
     protected void setup() {
-        filenameView.setText(filename);
+        filenameView.setText(file.getName());
     }
 }

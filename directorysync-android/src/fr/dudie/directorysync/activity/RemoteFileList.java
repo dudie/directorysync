@@ -29,6 +29,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 
 import fr.dudie.directorysync.R;
 import fr.dudie.directorysync.service.FileExplorerServiceMock;
+import fr.dudie.directorysync.service.model.RemoteFile;
 
 @EActivity(R.layout.act_remote_file_list)
 public class RemoteFileList extends FragmentActivity {
@@ -58,7 +59,7 @@ public class RemoteFileList extends FragmentActivity {
     protected void loadRemoteFiles() {
         LOGGER.debug("load remote files.start");
 
-        final List<String> files = fileExplorer.list();
+        final List<RemoteFile> files = fileExplorer.list();
         fileListAdapter.setFiles(files);
         hideLoad();
 
@@ -82,30 +83,30 @@ public class RemoteFileList extends FragmentActivity {
 
         private static class FileViewHolder {
 
-            String data;
+            RemoteFile data;
             TextView filename;
         }
 
         private final Context context;
-        private List<String> files;
+        private List<RemoteFile> files;
 
         public FileListAdapter(Context context) {
             this.context = context;
-            this.files = new ArrayList<String>(0);
+            this.files = new ArrayList<RemoteFile>(0);
         }
 
-        public void setFiles(List<String> files) {
+        public void setFiles(List<RemoteFile> files) {
             if (null != files) {
                 this.files = files;
             } else {
-                files = new ArrayList<String>(0);
+                files = new ArrayList<RemoteFile>(0);
             }
         }
 
         @Override
         public View getView(int position, View v, ViewGroup parent) {
 
-            final String filename = files.get(position);
+            final RemoteFile file = files.get(position);
 
             final FileViewHolder holder;
 
@@ -113,13 +114,13 @@ public class RemoteFileList extends FragmentActivity {
                 v = LayoutInflater.from(context).inflate(R.layout.li_file, null);
                 holder = new FileViewHolder();
                 holder.filename = (TextView) v.findViewById(R.id.li_file_name);
-                holder.data = filename;
+                holder.data = file;
                 v.setTag(holder);
             } else {
                 holder = (FileViewHolder) v.getTag();
             }
 
-            holder.filename.setText(filename);
+            holder.filename.setText(file.getName());
 
             return v;
         }
