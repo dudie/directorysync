@@ -2,13 +2,11 @@ package fr.dudie.directorysync.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.FileHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;

@@ -24,7 +24,10 @@ public class CustomizeSyncActivity extends FragmentActivity {
     }
 
     @ViewById(R.id.act_customize_sync_filename)
-    protected TextView filenameView;
+    protected TextView fileNameView;
+
+    @ViewById(R.id.act_customize_sync_uri)
+    protected TextView fileUriView;
 
     @Extra
     protected RemoteFile file;
@@ -36,6 +39,7 @@ public class CustomizeSyncActivity extends FragmentActivity {
 
     @AfterViews
     protected void setup() {
-        filenameView.setText(file.getName());
+        fileNameView.setText(file.getName());
+        fileUriView.setText(file.getUri().toString());
     }
 }
