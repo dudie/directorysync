@@ -26,6 +26,18 @@
             android:name="fr.dudie.directorysync.activity.CustomizeSyncActivity_"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="fr.dudie.directorysync.activity.SettingsActivity_"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="fr.dudie.directorysync.activity.HostSettingsActivity_"
+            android:label="@string/title_activity_host_settings"
+            android:parentActivityName="fr.dudie.directorysync.activity.SettingsActivity_" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.dudie.directorysync.activity.SettingsActivity_" />
+        </activity>
     </application>
 
 </manifest>

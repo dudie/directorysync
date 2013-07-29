@@ -7,9 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -75,6 +77,19 @@ public class RemoteFileList extends FragmentActivity {
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.act_remote_file_list, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_settings:
+            startActivity(new Intent(this, SettingsActivity_.class));
+            break;
+
+        default:
+            break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private static class FileListAdapter extends BaseAdapter implements OnItemClickListener {

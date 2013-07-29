@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Host general" >
+        <EditTextPreference
+            android:key="hostname"
+            android:summary="Entrez le nom d'hote"
+            android:title="Nom d&apos;hote" >
+        </EditTextPreference>
+        <EditTextPreference
+            android:key="port"
+            android:summary="Entrez le numero de port"
+            android:title="Port" >
+        </EditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Authentification" >
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
